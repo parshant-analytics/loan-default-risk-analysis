@@ -97,6 +97,11 @@ We trained four models and evaluated each on the same held-out test set:
 
 XGBoost leads across every single metric. Its ROC-AUC of **0.8961** means it correctly ranks a random defaulter above a random repayer ~90% of the time.
 
+![Model Performance Comparison](plots/Rplot11.png)
+
+![ROC Curve Comparison](plots/Rplot04.png)
+
+
 ### XGBoost Confusion Matrix (29,733 test samples)
 
 ```
@@ -106,6 +111,8 @@ Actual: No Default       352               22,054
 ```
 
 Out of 7,327 real defaults in the test set, the model caught **4,610 of them** while only raising false alarms on 352 non-defaulters. That's a precision of 92.91% - when the model says "default," it's right 9 times out of 10.
+
+![XGBoost Confusion Matrix](plots/Rplot12.png)
 
 ---
 
@@ -126,6 +133,8 @@ XGBoost's feature importance (by information gain) revealed:
 5. **Lump sum payment type, loan amount, negative amortization** —- secondary but meaningful signals.
 
 Credit score ranked 13th. The model learned what our EDA hinted at: traditional credit scoring is a weak predictor here.
+
+![XGBoost Feature Importance](plots/Rplot06.png)
 
 ---
 
