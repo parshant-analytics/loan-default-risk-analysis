@@ -1,9 +1,9 @@
-# loan-default-risk-analysis
-### Can we predict which borrowers will default : before it's too late?
+#  Loan Default Risk Analysis
+### Can we predict which borrowers will default - before it's too late?
 
 This project tackles one of the most consequential problems in lending: **identifying high-risk mortgage applicants before loans are approved.** Using a dataset of 148,670 real US mortgage applications from 2019, we trained and compared four machine learning models to flag potential defaulters with high precision.
 
-The short answer? **XGBoost wins ; and it's not close.**
+The short answer? **XGBoost wins - and it's not close.**
 
 ---
 
@@ -19,7 +19,7 @@ This project tries to find that balance.
 
 | | |
 |---|---|
-| **Source** | [Kaggle ; M Yasser H] ( https://www.kaggle.com/datasets/yasserh/loan-default-dataset ) |
+| **Source** | [Kaggle - M Yasser H](https://www.kaggle.com/datasets/yasserh/loan-default-dataset) |
 | **Records** | 148,670 loan applications |
 | **Year** | 2019 (US mortgage market) |
 | **Target** | Did the borrower default? (`1`) or repay? (`0`) |
@@ -34,19 +34,19 @@ The dataset includes 34 features covering the borrower's finances, credit histor
 A few things stood out during exploration that shaped every decision after:
 
 **1. Credit score is basically useless on its own.**
-Defaulters and repaid borrowers have almost identical credit score distributions , both centered around 700. This was surprising and important: a naive "just check the credit score" approach would miss most defaults.
+Defaulters and repaid borrowers have almost identical credit score distributions  both centered around 700. This was surprising and important: a naive "just check the credit score" approach would miss most defaults.
 
 **2. Debt-to-income ratio tells a better story.**
 Defaulters tend to have slightly higher DTI ratios. It's not dramatic, but it's consistent.
 
 **3. Where you live matters.**
-The North-East had the highest default rate at **30.45%**, while the North had the lowest at **22.51%** - nearly an 8-point gap.
+The North-East had the highest default rate at **30.45%**, while the North had the lowest at **22.51%**  nearly an 8-point gap.
 
 **4. Age is a U-shaped risk curve.**
 The youngest (<25) and oldest (>74) borrowers default most often (~29-30%). Mid-career borrowers (25-44) are the safest bets (~22%).
 
 **5. Loan type 2 is a red flag.**
-Borrowers with type-2 loans defaulted at **34.54%** - significantly higher than type-1 (22.77%) or type-3 (25.06%).
+Borrowers with type-2 loans defaulted at **34.54%**, significantly higher than type-1 (22.77%) or type-3 (25.06%).
 
 ---
 
@@ -64,7 +64,7 @@ Borrowers with type-2 loans defaulted at **34.54%** - significantly higher than 
 
 ### Train / Test Split
 - **80/20 stratified split** - preserves the 75/25 class ratio in both sets
-- Training: ~118,936 rows , Test: ~29,734 rows
+- Training: ~118,936 rows, Test: ~29,734 rows
 
 ---
 
@@ -74,7 +74,7 @@ We trained four models and evaluated each on the same held-out test set:
 
 | Model | Strategy |
 |---|---|
-| Logistic Regression | Linear baseline - fast, interpretable |
+| Logistic Regression | Linear baseline, fast, interpretable |
 | Decision Tree | Non-linear, single tree |
 | Random Forest | 100 decision trees, majority vote |
 | XGBoost | 200 boosting rounds, tuned hyperparameters |
@@ -101,7 +101,7 @@ XGBoost leads across every single metric. Its ROC-AUC of **0.8961** means it cor
 
 ```
                   Predicted: Default    Predicted: No Default
-Actual: Default         4,610               2,717 
+Actual: Default        4,610                2,717 
 Actual: No Default       352               22,054 
 ```
 
@@ -119,19 +119,19 @@ The default threshold of 0.5 isn't optimal for this problem. In lending, **missi
 
 XGBoost's feature importance (by information gain) revealed:
 
-1. **`credit_type = EQUI`** : by far the most important feature (~0.48 gain). Borrowers with this credit type are strongly associated with default.
-2. **LTV (Loan-to-Value ratio)** : the higher the loan relative to property value, the riskier.
-3. **DTI ratio (`dtir1`)** : confirms our EDA finding: debt burden matters.
-4. **Income** : lower income, higher risk. Not surprising, but the model confirms it quantitatively.
-5. **Lump sum payment type, loan amount, negative amortization** : secondary but meaningful signals.
+1. **`credit_type = EQUI`**  by far the most important feature (~0.48 gain). Borrowers with this credit type are strongly associated with default.
+2. **LTV (Loan-to-Value ratio)** - the higher the loan relative to property value, the riskier.
+3. **DTI ratio (`dtir1`)** - confirms our EDA finding: debt burden matters.
+4. **Income** - lower income, higher risk. Not surprising, but the model confirms it quantitatively.
+5. **Lump sum payment type, loan amount, negative amortization** —- secondary but meaningful signals.
 
 Credit score ranked 13th. The model learned what our EDA hinted at: traditional credit scoring is a weak predictor here.
 
 ---
 
 ##  Project Structure
+
 ```
-Loan_Default.csv              # Raw dataset (148,670 rows)
 loan_default_analysis.R       # Full pipeline: cleaning -> EDA -> modeling
 plots/
     Rplot.png                 # Class distribution (75/25 split)
@@ -149,6 +149,8 @@ plots/
     Rplot12.png               # XGBoost confusion matrix heatmap
 README.md
 ```
+
+> **Dataset not included.** The CSV exceeds GitHub's 25MB upload limit. Download `Loan_Default.csv` from [Kaggle](https://www.kaggle.com/datasets/yasserh/loan-default-dataset) and place it in the root folder before running the script.
 
 ---
 
@@ -168,7 +170,7 @@ install.packages(c(
 
 1. Clone the repo and place `Loan_Default.csv` in your working directory
 2. Open `loan_default_analysis.R` in RStudio
-3. Run top to bottom - plots render automatically, metrics print to console after each model block
+3. Run top to bottom  plots render automatically, metrics print to console after each model block
 
 ---
 
@@ -178,8 +180,8 @@ install.packages(c(
 
 - **Don't trust credit score alone.** It barely separates defaulters from repaid borrowers in this dataset.
 - **XGBoost is the clear winner**  better AUC, better F1, better recall, and it generalizes well.
-- **Threshold matters more than model choice.** Moving from 0.5 to 0.35 on XGBoost improves recall without destroying precision - a simple change with real business impact.
+- **Threshold matters more than model choice.** Moving from 0.5 to 0.35 on XGBoost improves recall without destroying precision  a simple change with real business impact.
 
 ---
 
-*Dataset: [Loan Default Dataset on Kaggle] ( https://www.kaggle.com/datasets/yasserh/loan-default-dataset ) , Analysis done in R*
+*Dataset: [Loan Default Dataset on Kaggle](https://www.kaggle.com/datasets/yasserh/loan-default-dataset), Analysis done in R*
