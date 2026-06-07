@@ -19,7 +19,7 @@ library(smotefamily)
 
 
 # load data
-df <- read.csv("Loan_Default.csv", stringsAsFactors = FALSE)
+loan_df <- read.csv("Loan_Default.csv", stringsAsFactors = FALSE)
 # quick look at the data
 nrow(loan_df)
 ncol(loan_df)
