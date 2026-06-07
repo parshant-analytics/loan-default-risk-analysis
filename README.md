@@ -87,7 +87,7 @@ We trained four models and evaluated each on the same held-out test set:
 
 | Metric | Logistic Reg. | Decision Tree | Random Forest | **XGBoost** |
 |---|---|---|---|---|
-| Accuracy | 87.61% | 86.66% | 88.62% | **99.68%** |
+| Accuracy | 87.61% | 86.66% | 88.62% | **89.68%** |
 | Recall | 55.32% | 49.16% | 57.79% | **62.92%** |
 | Precision | 90.81% | 93.70% | 93.55% | **92.91%** |
 | F1 Score | 68.75% | 64.49% | 71.44% | **75.03%** |
